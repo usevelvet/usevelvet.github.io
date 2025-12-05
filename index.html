@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Velvet</title>
+<title>Velvet Executor</title>
 
 <style>
     @font-face {
@@ -19,18 +19,19 @@
     }
 
     body {
-        background: #1a0f15;
+        background: #0e0e0e;
         overflow-x: hidden;
     }
 
-    /* Background image overlay */
-    .bg {
+    /* Background image */
+    .background {
         position: fixed;
-        top: 0; left: 0;
         width: 100%;
         height: 100%;
+        top: 0;
+        left: 0;
         background: url("Background.png") center/cover no-repeat;
-        filter: brightness(0.55) saturate(1.2);
+        filter: brightness(0.45) saturate(1.2);
         z-index: -1;
         animation: fadeIn 2s ease;
     }
@@ -40,112 +41,207 @@
         to { opacity: 1; }
     }
 
-    /* Center container */
-    .container {
+    /* NAVBAR */
+    nav {
         width: 100%;
-        max-width: 900px;
-        margin: auto;
-        text-align: center;
-        padding-top: 120px;
-        animation: slideUp 1.3s ease;
+        padding: 18px 45px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        animation: slideDown 1s ease;
     }
 
-    @keyframes slideUp {
-        from { transform: translateY(60px); opacity: 0; }
+    @keyframes slideDown {
+        from { transform: translateY(-40px); opacity: 0; }
         to { transform: translateY(0); opacity: 1; }
     }
 
-    /* Logo */
+    nav .title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #f2f2f2;
+    }
+
+    nav .right {
+        font-size: 16px;
+        color: #d0d0d0;
+        opacity: 0.8;
+    }
+
+    /* MAIN CONTENT */
+    .center {
+        width: 100%;
+        text-align: center;
+        margin-top: 130px;
+        animation: fadeUp 1.4s ease;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(45px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
     .logo {
-        width: 160px;
-        height: 160px;
+        width: 140px;
+        height: 140px;
         border-radius: 20px;
         object-fit: contain;
+        box-shadow: 0 0 25px rgba(255,255,255,0.1);
         animation: float 4s ease-in-out infinite;
     }
 
     @keyframes float {
-        0% { transform: translateY(0px); }
+        0% { transform: translateY(0); }
         50% { transform: translateY(-10px); }
-        100% { transform: translateY(0px); }
+        100% { transform: translateY(0); }
     }
 
     h1 {
         margin-top: 25px;
-        font-size: 42px;
-        color: #ffd4c2;
-        text-shadow: 0 0 20px rgba(255, 110, 80, 0.6);
+        font-size: 48px;
+        color: #ffffff;
+        text-shadow: 0 0 25px rgba(255,150,120,0.4);
     }
 
     p {
-        color: #ffb7a2;
-        font-size: 18px;
         margin-top: 10px;
+        color: #e5e5e5;
+        font-size: 18px;
+        opacity: 0.9;
     }
 
-    /* Buttons */
+    /* BUTTONS */
     .btn {
-        display: inline-block;
-        margin-top: 35px;
-        padding: 16px 35px;
-        font-size: 20px;
-        border-radius: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 13px 25px;
+        border-radius: 8px;
+        margin: 20px 8px;
+
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(7px);
+
+        color: #f5f5f5;
+        font-size: 17px;
+        font-weight: 500;
         text-decoration: none;
-        color: white;
-        background: linear-gradient(135deg, #e23e34, #8a1227);
-        box-shadow: 0 0 20px rgba(255, 80, 60, 0.4);
+        cursor: pointer;
+
         transition: 0.25s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.35);
     }
 
     .btn:hover {
-        transform: scale(1.07);
-        box-shadow: 0 0 30px rgba(255, 80, 60, 0.7);
+        background: rgba(255, 255, 255, 0.17);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.45);
     }
 
-    .discord {
-        background: linear-gradient(135deg, #7289da, #4b5fb3);
-        box-shadow: 0 0 20px rgba(114,137,218,0.4);
+    .arrow {
+        font-size: 15px;
+        opacity: 0.8;
+        transition: 0.25s;
     }
 
-    .discord:hover {
-        box-shadow: 0 0 30px rgba(114,137,218,0.8);
+    .btn:hover .arrow {
+        opacity: 1;
     }
 
-    /* Fade delay for buttons */
-    .fade-in {
-        opacity: 0;
-        animation: fadeInSlow 1.8s ease forwards;
+    /* FEATURES GRID */
+    .features {
+        width: 90%;
+        max-width: 1300px;
+        margin: 110px auto;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 25px;
+        animation: fadeUp 1.6s ease;
     }
 
-    .fade-in2 {
-        opacity: 0;
-        animation: fadeInSlow 2.3s ease forwards;
+    .card {
+        flex: 1;
+        min-width: 250px;
+        padding: 25px;
+        border-radius: 12px;
+
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(8px);
+
+        color: white;
+        text-align: center;
+
+        transition: 0.25s ease;
+        box-shadow: 0 5px 18px rgba(0,0,0,0.35);
     }
 
-    @keyframes fadeInSlow {
-        from { opacity: 0; }
-        to { opacity: 1; }
+    .card:hover {
+        background: rgba(255, 255, 255, 0.13);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+    }
+
+    .card h2 {
+        margin-bottom: 10px;
+        font-size: 22px;
+    }
+
+    .card p {
+        font-size: 15px;
+        opacity: 0.85;
     }
 
 </style>
 </head>
 <body>
 
-<div class="bg"></div>
+<div class="background"></div>
 
-<div class="container">
+<nav>
+    <div class="title">Velvet Executor</div>
+    <div class="right">Executor</div>
+</nav>
+
+<div class="center">
     <img src="Logo.png" class="logo">
 
     <h1>Velvet Executor</h1>
-    <p>Fast • Clean • Smooth • Modern</p>
+    <p>The cleanest & fastest executor with a modern UI.</p>
 
-    <a id="downloadBtn" class="btn fade-in">Download Velvet</a>
-    <br>
-    <a id="discordBtn" class="btn discord fade-in2">Join Discord</a>
+    <a id="downloadBtn" class="btn">Download <span class="arrow">▼</span></a>
+    <a id="discordBtn" class="btn">Join Discord</a>
+</div>
+
+<!-- FEATURE CARDS -->
+<div class="features">
+    <div class="card">
+        <h2>Powerful</h2>
+        <p>Velvet gives you the latest execution technology with smooth & stable performance.</p>
+    </div>
+
+    <div class="card">
+        <h2>Lightweight</h2>
+        <p>Minimal CPU usage, compact size, fast startup. Built for performance.</p>
+    </div>
+
+    <div class="card">
+        <h2>Secure</h2>
+        <p>Protected system prevents crashes and boosts stability across all games.</p>
+    </div>
+
+    <div class="card">
+        <h2>Private</h2>
+        <p>No personal info is collected — ever. Velvet stays local on your system.</p>
+    </div>
 </div>
 
 <script>
-    // Load links from text files
     async function loadLink(file) {
         try {
             const response = await fetch(file);
